@@ -1,0 +1,25 @@
+/* Border styles */
+.table thead, .table tr {
+    border-top: 1px solid rgb(211, 202, 221);
+}
+
+.table {
+    border-bottom: 1px solid rgb(211, 202, 221);
+}
+
+/* Padding and font style */
+.table td, .table th {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: Verdana, monospace;
+    color: rgb(95, 74, 121);
+}
+
+/* Alternating background colors */
+.table tr:nth-child(even) {
+    background: rgb(223, 216, 232)
+}
+
+.table tr:nth-child(odd) {
+    background: #FFFFFF
+}

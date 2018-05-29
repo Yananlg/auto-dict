@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link id="css" rel="stylesheet" href="../static/table2.css">
+  <!-- 开发环境版本，包含了用帮助的命令行警告 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- 生产环境版本，优化了尺寸和速度 -->
+  <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+  <script type="application/javascript">
+      function change() {
+          var cssobj = document.getElementById("css");
+          var obj = document.getElementById("css-select");
+          var value = obj.options[obj.selectedIndex].value; // 选中值
+          cssobj.setAttribute("href", "../static/" + value);
+      }
+  </script>
+</head>
+<body>
+
+<select id="css-select" onchange="change()">
+  <option th:each="i: ${#numbers.sequence(1, 8)}" th:value="${'table' + i + '.css'}" th:text="${'table' + i + '.css'}"></option>
+</select>
+
+<div th:each="dictMap: ${dicts}">
+    <a th:href="${'#' + dictMap.key}"><h3 th:text="${dictMap.key}"></h3></a>
+</div>
+
+<th:block th:each="dictMap: ${dicts}">
+
+
+  <h3 th:text="${dictMap.key}"></h3>
+  <table class="table" th:id="${dictMap.key}">
+    <thead>
+    <th th:text="字段编号"></th>
+    <th>字段名</th>
+    <th>数据类型</th>
+    <th>允许为空</th>
+    <th>键类型</th>
+    <th>自增属性</th>
+    <th>字段说明</th>
+    </thead>
+    <tbody>
+    <tr th:each="dict: ${dictMap.value}">
+      <td th:text="${dict.ordinal}"></td>
+      <td th:text="${dict.columnName}"></td>
+      <td th:text="${dict.columnType}"></td>
+      <td th:text="${dict.isNullable}"></td>
+      <td th:text="${dict.columnKey}"></td>
+      <td th:text="${dict.increment}"></td>
+      <td th:text="${dict.columnComment}"></td>
+    </tr>
+    </tbody>
+  </table>
+</th:block>
+
+</body>
+</html>

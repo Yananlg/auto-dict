@@ -1,0 +1,15 @@
+SELECT
+    T.TABLE_NAME AS 'tableName',
+    C.ORDINAL_POSITION AS 'ordinal',
+    C.COLUMN_NAME AS 'columnName',
+    C.COLUMN_TYPE AS 'columnType',
+    C.IS_NULLABLE AS 'isNullable',
+    C.COLUMN_KEY AS 'columnKey',
+    C.EXTRA AS 'increment',
+    C.COLUMN_COMMENT AS 'columnComment'
+FROM
+    COLUMNS C
+INNER JOIN TABLES T ON C.TABLE_SCHEMA = T.TABLE_SCHEMA
+AND C.TABLE_NAME = T.TABLE_NAME
+WHERE
+    T.TABLE_SCHEMA = '%s'
