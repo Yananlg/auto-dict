@@ -1,59 +1,246 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <link id="css" rel="stylesheet" href="../static/table2.css">
-  <!-- 开发环境版本，包含了用帮助的命令行警告 -->
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <!-- 生产环境版本，优化了尺寸和速度 -->
-  <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
-  <script type="application/javascript">
-      function change() {
-          var cssobj = document.getElementById("css");
-          var obj = document.getElementById("css-select");
-          var value = obj.options[obj.selectedIndex].value; // 选中值
-          cssobj.setAttribute("href", "../static/" + value);
-      }
-  </script>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta content="" name="keywords">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="viewport" content="user-scalable=no, width=device-width">
+    <meta content="telephone=no" name="format-detection">
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+            display: block
+        }
+
+        a {
+            text-decoration: none;
+            background-color: transparent;
+        }
+
+        .header {
+            padding: 0px 15px;
+            line-height: 60px;
+            height: 60px;
+            background: #262626;
+            font-size: 14px;
+            color: #FFFFFF;
+            position: fixed;
+            width: 100%;
+            top: 0px;
+        }
+
+        .header .navbar-nav {
+            float: left;
+        }
+
+        .header .navbar-theme {
+            float: right;
+        }
+
+        .header .navbar-nav a, .header .navbar-theme a {
+            color: #FFFFFF !important;
+        }
+
+        .container {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-top: 65px;
+            margin-right: auto;
+            margin-left: auto;
+            display: flex;
+        }
+
+        .slide_nav {
+            width: 250px;
+            background: #F1F8FA;
+        }
+
+        .slide_nav h3 {
+            padding: 0 0 0 15px;
+        }
+
+        ul.list-group {
+            overflow: hidden;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        ul.list-group li a {
+            display: block;
+            padding: 5px 20px;
+            color: #666666;
+            font-size: 12px;
+        }
+
+        .nav > li > a {
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+        }
+
+        ol, ul {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        ul.list-group li:hover, ul.list-group li a:hover {
+            background-color: #5EB5E2;
+            color: #FFFFFF;
+        }
+
+        .slide_table {
+            margin-left: 15px;
+        }
+
+        .api-one {
+            margin-bottom: 40px;
+        }
+
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+            display: table;
+            border-color: grey;
+            background-color: transparent;
+        }
+
+        thead {
+            display: table-header-group;
+            vertical-align: middle;
+            border-color: inherit;
+            font-size: 12px;
+        }
+
+        tbody {
+            font-size: 12px;
+        }
+
+        tr {
+            display: table-row;
+            vertical-align: inherit;
+            border-color: inherit;
+        }
+
+        th {
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: top;
+            border-top: 1px solid #DDDDDD;
+        }
+
+        .footer {
+            padding: 25px;
+            line-height: 5px;
+            background: #FFFFFF;
+            text-align: center;
+            border-top: 1px solid #EEEEEE;
+            font-size: 12px;
+            color: #999999;
+        }
+
+        .footer .name {
+            float: left;
+        }
+
+        .footer .beian {
+            float: right;
+        }
+
+        .contact_div {
+            position: fixed;
+            width: 236px;
+            right: 0px;
+            left: inherit;
+            top: 90%;
+        }
+
+        .contact_div .contact_bar {
+            float: right;
+        }
+
+        .contact_div .contact_bar a {
+            color: #FFFFFF;
+            padding: 10px;
+            display: block;
+            width: 36px;
+            background: #333333;
+        }
+    </style>
 </head>
+
 <body>
-
-<select id="css-select" onchange="change()">
-  <option th:each="i: ${#numbers.sequence(1, 8)}" th:value="${'table' + i + '.css'}" th:text="${'table' + i + '.css'}"></option>
-</select>
-
-<div th:each="dictMap: ${dicts}">
-    <a th:href="${'#' + dictMap.key}"><h3 th:text="${dictMap.key}"></h3></a>
+<div class="header">
+    <div class="navbar-nav">
+        <a href="#top">read/write/order 文档</a>
+    </div>
+    <div class="navbar-theme">
+        <a href="" target="_blank">在线版</a>
+    </div>
 </div>
 
-<th:block th:each="dictMap: ${dicts}">
+<div class="container">
+    <div class="slide_nav">
+        <h3>列表</h3>
+        <ul class="list-group">
+            <li th:each="dictMap: ${dicts}" th:href="${'#' + dictMap.key}">
+                <a th:href="${'#' + dictMap.key}" th:text="${dictMap.key}"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="slide_table">
+        <div th:each="dictMap: ${dicts}" class="api-one">
+            <h3 th:id="${dictMap.key}" th:text="${dictMap.key}"></h3>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>字段编号</th>
+                    <th>字段名</th>
+                    <th>数据类型</th>
+                    <th>允许为空</th>
+                    <th>键类型</th>
+                    <th>自增属性</th>
+                    <th>字段说明</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="dict: ${dictMap.value}">
+                    <td th:text="${dict.ordinal}"></td>
+                    <td th:text="${dict.columnName}"></td>
+                    <td th:text="${dict.columnType}"></td>
+                    <td th:text="${dict.isNullable}"></td>
+                    <td th:text="${dict.columnKey}"></td>
+                    <td th:text="${dict.increment}"></td>
+                    <td th:text="${dict.columnComment}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
+<div class="footer">
+    <div class="name">版权归作者所有</div>
+    <div class="beian">
+        <a style="color:#999999;margin-right:10px;" href="" target="_blank">管理平台</a>
+    </div>
+</div>
 
-  <h3 th:text="${dictMap.key}"></h3>
-  <table class="table" th:id="${dictMap.key}">
-    <thead>
-    <th th:text="字段编号"></th>
-    <th>字段名</th>
-    <th>数据类型</th>
-    <th>允许为空</th>
-    <th>键类型</th>
-    <th>自增属性</th>
-    <th>字段说明</th>
-    </thead>
-    <tbody>
-    <tr th:each="dict: ${dictMap.value}">
-      <td th:text="${dict.ordinal}"></td>
-      <td th:text="${dict.columnName}"></td>
-      <td th:text="${dict.columnType}"></td>
-      <td th:text="${dict.isNullable}"></td>
-      <td th:text="${dict.columnKey}"></td>
-      <td th:text="${dict.increment}"></td>
-      <td th:text="${dict.columnComment}"></td>
-    </tr>
-    </tbody>
-  </table>
-</th:block>
-
+<div class="contact_div">
+    <div class="contact_bar">
+        <a href="#top">目录</a>
+    </div>
+</div>
 </body>
 </html>

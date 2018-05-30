@@ -6,10 +6,5 @@ spring:
   mvc:
     static-path-pattern: /static/**
   resources:
-    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.upload-path},file:${web.vue-path}
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
 
-web:
-  upload-path: C:/Hpsy/
-  # 项目上传文件路径
-  # upload-url: http://47.93.246.239:8100/api/
-  vue-path: C:/javaProject/hpsy/admin/
