@@ -26,12 +26,14 @@ repositories {
 
 dependencies {
 
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+//    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf'){
+        exclude module: 'spring-boot-starter-web'
+    }
     compile('org.springframework.boot:spring-boot-starter-jdbc') {
         exclude module: 'tomcat-jdbc'
     }
-    compile('org.springframework.boot:spring-boot-starter-devtools')
+//    compile('org.springframework.boot:spring-boot-starter-devtools')
     compile('ognl:ognl:3.2.6')
 
     runtime('com.microsoft.sqlserver:mssql-jdbc')

@@ -156,6 +156,7 @@
 
         .footer .beian {
             float: right;
+            margin-right: 100px;
         }
 
         .contact_div {
@@ -174,7 +175,8 @@
             color: #FFFFFF;
             padding: 10px;
             display: block;
-            width: 36px;
+            width: 14px;
+            font-size: 14px;
             background: #333333;
         }
     </style>
@@ -183,10 +185,10 @@
 <body>
 <div class="header">
     <div class="navbar-nav">
-        <a href="#top">read/write/order 文档</a>
+        <a href="#top">数据字典</a>
     </div>
     <div class="navbar-theme">
-        <a href="" target="_blank">在线版</a>
+        <a href="" target="_blank"></a>
     </div>
 </div>
 
@@ -194,18 +196,18 @@
     <div class="slide_nav">
         <h3>列表</h3>
         <ul class="list-group">
-            <li th:each="dictMap: ${dicts}" th:href="${'#' + dictMap.key}">
-                <a th:href="${'#' + dictMap.key}" th:text="${dictMap.key}"></a>
+            <li th:each="dict: ${dicts}" th:href="'#' + ${dict.key.tableName}">
+                <a th:href="'#' + ${dict.key.tableName}" th:text="${dict.key.title}"></a>
             </li>
         </ul>
     </div>
     <div class="slide_table">
-        <div th:each="dictMap: ${dicts}" class="api-one">
-            <h3 th:id="${dictMap.key}" th:text="${dictMap.key}"></h3>
+        <div th:each="dict: ${dicts}" class="api-one" th:id="${dict.key.tableName}" >
+            <h3 th:text="${dict.key.title}"></h3>
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>字段编号</th>
+                    <th>编号</th>
                     <th>字段名</th>
                     <th>数据类型</th>
                     <th>允许为空</th>
@@ -215,14 +217,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="dict: ${dictMap.value}">
-                    <td th:text="${dict.ordinal}"></td>
-                    <td th:text="${dict.columnName}"></td>
-                    <td th:text="${dict.columnType}"></td>
-                    <td th:text="${dict.isNullable}"></td>
-                    <td th:text="${dict.columnKey}"></td>
-                    <td th:text="${dict.increment}"></td>
-                    <td th:text="${dict.columnComment}"></td>
+                <tr th:each="column: ${dict.value}">
+                    <td th:text="${column.ordinal}"></td>
+                    <td th:text="${column.columnName}"></td>
+                    <td th:text="${column.columnType}"></td>
+                    <td th:text="${column.isNullable}"></td>
+                    <td th:text="${column.columnKey}"></td>
+                    <td th:text="${column.increment}"></td>
+                    <td th:text="${column.columnComment}"></td>
                 </tr>
                 </tbody>
             </table>

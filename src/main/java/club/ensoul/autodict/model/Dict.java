@@ -2,13 +2,10 @@ package club.ensoul.autodict.model;
 
 import lombok.Data;
 
-/**
- * @author CHEN
- **/
 @Data
 public class Dict {
     
-    private String tableName;          // 表名
+    private Table table;
     private String ordinal;            // 字段编号
     private String columnName;         // 字段名
     private String columnType;         // 数据类型
@@ -20,8 +17,8 @@ public class Dict {
     public Dict() {
     }
     
-    public Dict(String tableName, String ordinal, String columnName, String columnType, String isNullable, String columnKey, String increment, String columnComment) {
-        this.tableName = tableName;
+    public Dict(Table table, String ordinal, String columnName, String columnType, String isNullable, String columnKey, String increment, String columnComment) {
+        this.table = table;
         this.ordinal = ordinal;
         this.columnName = columnName;
         this.columnType = columnType;
@@ -31,17 +28,4 @@ public class Dict {
         this.columnComment = columnComment;
     }
     
-    @Override
-    public String toString() {
-        return "Dict{" +
-                "tableName='" + tableName + '\'' +
-                ", ordinal='" + ordinal + '\'' +
-                ", columnName='" + columnName + '\'' +
-                ", columnType='" + columnType + '\'' +
-                ", isNullable='" + isNullable + '\'' +
-                ", columnKey='" + columnKey + '\'' +
-                ", increment='" + increment + '\'' +
-                ", columnComment='" + columnComment + '\'' +
-                '}';
-    }
 }
