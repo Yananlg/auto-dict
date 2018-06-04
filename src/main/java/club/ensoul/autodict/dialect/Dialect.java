@@ -80,9 +80,9 @@ public class Dialect {
     
     private static String sqlRead(String dialect) throws Exception {
         String _dialect = dialect.toLowerCase();
-        File file = ResourceUtils.getFile("classpath:sql/" + _dialect);
         InputStream inputStream;
         try {
+            File file = ResourceUtils.getFile("classpath:sql/" + _dialect);
             inputStream = new FileInputStream(file);
         } catch(Exception e) {
             inputStream = new ClassPathResource("/sql/" + _dialect).getInputStream();

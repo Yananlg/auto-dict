@@ -13,10 +13,11 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import sun.misc.CharacterEncoder;
 
-import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -33,27 +34,28 @@ public class HtmlRunner implements CommandLineRunner {
         ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
         String db = applicationArguments.getOptionValues("db").get(0);
         String dialect = applicationArguments.getOptionValues("dialect").get(0);
-    
+        
         ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
         resolver.setPrefix("templates/");//模板所在目录，相对于当前classloader的classpath。
         resolver.setSuffix(".html");//模板文件后缀
         resolver.setCharacterEncoding("UTF-8");
         TemplateEngine templateEngine = new TemplateEngine();
         templateEngine.setTemplateResolver(resolver);
-
+        
         Map<Table, List<Dict>> listMap = fetchData.query(dialect, db);
         //构造上下文(Model)
         Context context = new Context();
         context.setVariable("dicts", listMap);
-
+        
         //渲染模板
-        FileWriter write = null;
+        BufferedWriter writer = null;
         try {
-            write = new FileWriter(JarToolUtil.springBoot() + "/result.html");
+            String filePath = JarToolUtil.springBoot() + "/result.html";
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath, true), "UTF-8"));
         } catch(IOException e) {
             e.printStackTrace();
         }
-        templateEngine.process("index", context, write);
+        templateEngine.process("index", context, writer);
     }
     
     

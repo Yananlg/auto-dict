@@ -3,7 +3,14 @@ buildscript {
         springBootVersion = '2.0.2.RELEASE'
     }
     repositories {
+        mavenLocal()
         mavenCentral()
+        jcenter()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+        maven { url 'http://maven.springframework.org/release' }
+        maven { url 'http://maven.springframework.org/milestone' }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -15,19 +22,34 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
+archivesBaseName = 'auto-dict'
 group = 'club.ensoul'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// java编译的时候缺省状态下会因为中文字符而失败
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
 repositories {
     mavenCentral()
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+task copyTask(type: Copy) {
+    from 'run.bat'
+    into 'build/libs'
+
+    copyTask.dependsOn build
+}
 
 dependencies {
 
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-thymeleaf'){
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf') {
 //        exclude module: 'spring-boot-starter-web'
     }
     compile('org.springframework.boot:spring-boot-starter-jdbc') {
