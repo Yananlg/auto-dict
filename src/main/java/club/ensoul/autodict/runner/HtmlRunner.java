@@ -3,6 +3,7 @@ package club.ensoul.autodict.runner;
 import club.ensoul.autodict.jdbc.FetchData;
 import club.ensoul.autodict.model.Dict;
 import club.ensoul.autodict.model.Table;
+import club.ensoul.autodict.util.JarToolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.CommandLineRunner;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import sun.misc.CharacterEncoder;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -35,6 +37,7 @@ public class HtmlRunner implements CommandLineRunner {
         ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
         resolver.setPrefix("templates/");//模板所在目录，相对于当前classloader的classpath。
         resolver.setSuffix(".html");//模板文件后缀
+        resolver.setCharacterEncoding("UTF-8");
         TemplateEngine templateEngine = new TemplateEngine();
         templateEngine.setTemplateResolver(resolver);
 
@@ -46,7 +49,7 @@ public class HtmlRunner implements CommandLineRunner {
         //渲染模板
         FileWriter write = null;
         try {
-            write = new FileWriter("../result.html");
+            write = new FileWriter(JarToolUtil.springBoot() + "/result.html");
         } catch(IOException e) {
             e.printStackTrace();
         }

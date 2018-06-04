@@ -1,10 +1,13 @@
 package club.ensoul.autodict.dialect;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.ResourceUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStream;
 
 /**
  * @author CHEN
@@ -18,7 +21,7 @@ public class Dialect {
     private final static String DRIVER_CLASS_NAME_SYBASE = "com.sybase.jdbc.SybDriver";
     private final static String DRIVER_CLASS_NAME_ORACLE_THIN = "oracle.jdbc.driver.OracleDriver";
     
-    private final static String URL_CLASS_NAME_MYSQL = "jdbc:mysql://localhost/information_schema?useUnicode=true&characterEncoding=8859_1";
+    private final static String URL_CLASS_NAME_MYSQL = "jdbc:mysql://localhost/information_schema?useUnicode=true&characterEncoding=utf-8";
     private final static String URL_CLASS_NAME_POSTGRESQL = "jdbc:postgresql://localhost/{0}";
     private final static String URL_CLASS_NAME_MSSQL = "jdbc:microsoft:sqlserver://localhost:1433;DatabaseName={0}";
     private final static String URL_CLASS_NAME_DB2 = "jdbc:db2://localhost:5000/{0}";
@@ -28,12 +31,18 @@ public class Dialect {
     public static String driverClass(String dialect) {
         String _dialect = dialect.toLowerCase();
         switch(_dialect) {
-            case "mssql": return DRIVER_CLASS_NAME_MSSQL;
-            case "oracle": return DRIVER_CLASS_NAME_ORACLE_THIN;
-            case "postgresql": return DRIVER_CLASS_NAME_POSTGRESQL;
-            case "sybase": return DRIVER_CLASS_NAME_SYBASE;
-            case "db2": return DRIVER_CLASS_NAME_DB2;
-            default: return DRIVER_CLASS_NAME_MYSQL;
+            case "mssql":
+                return DRIVER_CLASS_NAME_MSSQL;
+            case "oracle":
+                return DRIVER_CLASS_NAME_ORACLE_THIN;
+            case "postgresql":
+                return DRIVER_CLASS_NAME_POSTGRESQL;
+            case "sybase":
+                return DRIVER_CLASS_NAME_SYBASE;
+            case "db2":
+                return DRIVER_CLASS_NAME_DB2;
+            default:
+                return DRIVER_CLASS_NAME_MYSQL;
         }
     }
     
@@ -54,27 +63,33 @@ public class Dialect {
     private static String url(String dialect) {
         String _dialect = dialect.toLowerCase();
         switch(_dialect) {
-            case "mssql": return URL_CLASS_NAME_MSSQL;
-            case "oracle": return URL_CLASS_NAME_ORACLE_THIN;
-            case "postgresql": return URL_CLASS_NAME_POSTGRESQL;
-            case "sybase": return URL_CLASS_NAME_SYBASE;
-            case "db2": return URL_CLASS_NAME_DB2;
-            default: return URL_CLASS_NAME_MYSQL;
+            case "mssql":
+                return URL_CLASS_NAME_MSSQL;
+            case "oracle":
+                return URL_CLASS_NAME_ORACLE_THIN;
+            case "postgresql":
+                return URL_CLASS_NAME_POSTGRESQL;
+            case "sybase":
+                return URL_CLASS_NAME_SYBASE;
+            case "db2":
+                return URL_CLASS_NAME_DB2;
+            default:
+                return URL_CLASS_NAME_MYSQL;
         }
     }
     
     private static String sqlRead(String dialect) throws Exception {
         String _dialect = dialect.toLowerCase();
         File file = ResourceUtils.getFile("classpath:sql/" + _dialect);
-        FileReader reader = new FileReader(file);
-        BufferedReader bReader = new BufferedReader(reader);
-        StringBuilder sb = new StringBuilder();
-        String s;
-        while((s = bReader.readLine()) != null) {
-            sb.append(s + " ");
+        InputStream inputStream;
+        try {
+            inputStream = new FileInputStream(file);
+        } catch(Exception e) {
+            inputStream = new ClassPathResource("/sql/" + _dialect).getInputStream();
         }
-        bReader.close();
-        return sb.toString();
+        byte[] s = new byte[1024];
+        inputStream.read(s);
+        return new String(s).trim().replace("\\n|\\r", " ");
     }
     
 }
